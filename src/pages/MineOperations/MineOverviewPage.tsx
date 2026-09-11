@@ -40,14 +40,23 @@ export const MineOverviewPage: React.FC<Props> = ({ setActiveTab }) => {
             <Pickaxe className="w-4 h-4 text-[#0B2545]" />
             <span>Operational Mine Profile & Statutory Ledger</span>
           </div>
-          <h1 className="text-2xl font-black text-slate-900 mt-1">{currentMine.name}</h1>
+
+          <h1 className="text-2xl font-black text-slate-900 mt-1">
+            {currentMine.name}
+          </h1>
+
           <p className="text-xs text-slate-600 mt-0.5">
-            Subsidiary: <strong>{currentMine.subsidiary}</strong> &bull; Mining Type: <strong>{currentMine.type}</strong> &bull; Annual Peak Target: <strong>{currentMine.annualProductionTargetMTPA} MTPA</strong>
+            Subsidiary: <strong>{currentMine.subsidiary}</strong> &bull; Mining Type:{' '}
+            <strong>{currentMine.type}</strong> &bull; Annual Peak Target:{' '}
+            <strong>{currentMine.annualProductionTargetMTPA ?? 0} MTPA</strong>
           </p>
         </div>
 
         <div className="flex items-center space-x-2 w-full sm:w-auto">
-          <label className="text-xs font-bold text-slate-700 uppercase whitespace-nowrap">Select Mine:</label>
+          <label className="text-xs font-bold text-slate-700 uppercase whitespace-nowrap">
+            Select Mine:
+          </label>
+
           <select
             value={selectedMineId}
             onChange={e => setSelectedMineId(e.target.value)}
@@ -65,24 +74,59 @@ export const MineOverviewPage: React.FC<Props> = ({ setActiveTab }) => {
       {/* 4 Stat Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
         <div className="gov-card p-3 space-y-1">
-          <span className="text-[10px] text-slate-500 uppercase font-bold">Statutory Compliance</span>
-          <div className="text-xl font-black text-emerald-800 font-mono">{currentMine.complianceScore}%</div>
-          <p className="text-[10px] text-slate-500">DGMS Verified</p>
+          <span className="text-[10px] text-slate-500 uppercase font-bold">
+            Statutory Compliance
+          </span>
+
+          <div className="text-xl font-black text-emerald-800 font-mono">
+            {currentMine.complianceScore}%
+          </div>
+
+          <p className="text-[10px] text-slate-500">
+            DGMS Verified
+          </p>
         </div>
+
         <div className="gov-card p-3 space-y-1">
-          <span className="text-[10px] text-slate-500 uppercase font-bold">AI Risk Index</span>
-          <div className="text-xl font-black text-red-700 font-mono">{currentMine.riskScore} / 100</div>
-          <p className="text-[10px] text-slate-500">High Risk Threshold</p>
+          <span className="text-[10px] text-slate-500 uppercase font-bold">
+            AI Risk Index
+          </span>
+
+          <div className="text-xl font-black text-red-700 font-mono">
+            {currentMine.riskScore} / 100
+          </div>
+
+          <p className="text-[10px] text-slate-500">
+            High Risk Threshold
+          </p>
         </div>
+
         <div className="gov-card p-3 space-y-1">
-          <span className="text-[10px] text-slate-500 uppercase font-bold">Active Workforce</span>
-          <div className="text-xl font-black text-slate-900 font-mono">{currentMine.activeWorkers.toLocaleString()}</div>
-          <p className="text-[10px] text-slate-500">Form B Verified</p>
+          <span className="text-[10px] text-slate-500 uppercase font-bold">
+            Active Workforce
+          </span>
+
+          <div className="text-xl font-black text-slate-900 font-mono">
+            {(currentMine.activeWorkers ?? 0).toLocaleString()}
+          </div>
+
+          <p className="text-[10px] text-slate-500">
+            Form B Verified
+          </p>
         </div>
+
         <div className="gov-card p-3 space-y-1">
-          <span className="text-[10px] text-slate-500 uppercase font-bold">Open Corrective Actions</span>
-          <div className="text-xl font-black text-amber-800 font-mono">{currentMine.openIssuesCount}</div>
-          <p className="text-[10px] text-slate-500">{currentMine.openCriticalCount} Critical SLA</p>
+          <span className="text-[10px] text-slate-500 uppercase font-bold">
+            Open Corrective Actions
+          </span>
+
+          <div className="text-xl font-black text-amber-800 font-mono">
+            {currentMine.openIssuesCount ?? currentMine.openIssues}
+          </div>
+
+          <p className="text-[10px] text-slate-500">
+            {currentMine.openCriticalCount ?? currentMine.criticalIssues} Critical SLA
+          </p>
         </div>
       </div>
 
@@ -94,7 +138,11 @@ export const MineOverviewPage: React.FC<Props> = ({ setActiveTab }) => {
         <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800">
           Geospatial Map & Active Extraction Faces
         </h3>
-        <GISMap mines={[currentMine]} selectedMine={currentMine} />
+
+        <GISMap
+          mines={[currentMine]}
+          selectedMine={currentMine}
+        />
       </div>
     </div>
   );

@@ -82,6 +82,14 @@ export interface Mine {
   district: string;
   lat: number;
   lng: number;
+
+  latitude?: number;
+  longitude?: number;
+  openCriticalCount?: number;
+  type?: string;
+  annualProductionTargetMTPA?: number;
+  activeWorkers?: number;
+  openIssuesCount?: number;
   complianceScore: number;
   riskScore: number;
   governanceHealthScore: number;
@@ -120,6 +128,7 @@ export interface InspectionEvidence {
 export interface Inspection {
   id: string;
   inspectionNo: string;
+  inspectionCode: string;
   mineId: string;
   mineName: string;
   siteZone: string;
@@ -159,6 +168,7 @@ export interface CorrectiveAction {
   actionPlan: string;
   recommendedByAI: boolean;
   assignedOfficer: string;
+  assignedTo?: string;
   officerRole: string;
   department: string;
   assignedDate: string;
@@ -203,6 +213,9 @@ export interface Issue {
   recurringCount?: number;
   assignedDepartment: string;
   assignedOfficer: string;
+  assignedTo?: string;
+  zone?: string;
+  slaRemainingHours?: number;
   aiExplanation: {
     whySeverity: string[];
     riskFactors: { factor: string; points: number; positive?: boolean }[];
@@ -217,8 +230,19 @@ export interface StatutoryComplianceRule {
   id: string;
   ruleCode: string;
   title: string;
+
   regulationBody: 'DGMS' | 'MoEFCC' | 'CPCB' | 'Mines Act 1952' | 'Coal Mines Regulations 2017' | 'Contract Labour Act';
+
   sectionRef: string;
+
+  authority?: string;
+  act?: string;
+  category?: string;
+  description?: string;
+  applicableTo?: string;
+  frequency?: string;
+  penaltyClause?: string;
+
   mineId: string;
   mineName: string;
   subsidiary: string;
